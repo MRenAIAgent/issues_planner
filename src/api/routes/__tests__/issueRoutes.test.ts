@@ -15,6 +15,7 @@ describe('Issue Routes', () => {
       processEvent: jest.fn(),
       listIssues: jest.fn(),
       getIssue: jest.fn(),
+      searchIssues: jest.fn(),
       analyzeIssue: jest.fn(),
       planIssue: jest.fn()
     };
@@ -34,6 +35,7 @@ describe('Issue Routes', () => {
     expect(routes).toContainEqual({ path: '/events', method: 'post' });
     expect(routes).toContainEqual({ path: '/issues', method: 'get' });
     expect(routes).toContainEqual({ path: '/issues/:issueId', method: 'get' });
+    expect(routes).toContainEqual({ path: '/issues/search', method: 'post' });
     expect(routes).toContainEqual({ path: '/analyze/:issueId', method: 'post' });
     expect(routes).toContainEqual({ path: '/plan/:issueId', method: 'post' });
   });
@@ -46,6 +48,7 @@ describe('Issue Routes', () => {
     // Verify the same for other methods
     expect((mockIssueController.listIssues as jest.Mock).mock.instances).toHaveLength(0);
     expect((mockIssueController.getIssue as jest.Mock).mock.instances).toHaveLength(0);
+    expect((mockIssueController.searchIssues as jest.Mock).mock.instances).toHaveLength(0);
     expect((mockIssueController.analyzeIssue as jest.Mock).mock.instances).toHaveLength(0);
     expect((mockIssueController.planIssue as jest.Mock).mock.instances).toHaveLength(0);
   });

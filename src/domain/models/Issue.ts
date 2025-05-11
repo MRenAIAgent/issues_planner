@@ -32,6 +32,17 @@ export interface IssueEvent {
   createdAt: string;
 }
 
+// For event sourcing & replay capabilities
+export type EventType = 'ISSUE_CREATED' | 'ISSUE_UPDATED' | 'ISSUE_ANALYZED' | 'ISSUE_PLANNED' | 'COMMENT_ADDED';
+
+export interface Event {
+  id: string;
+  type: EventType;
+  data: any;
+  timestamp: string;
+  issueId: string;
+}
+
 // Helper function to convert an IssueEvent to an Issue
 export function issueEventToIssue(event: IssueEvent): Issue {
   return {

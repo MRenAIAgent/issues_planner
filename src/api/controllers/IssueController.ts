@@ -1,5 +1,5 @@
 import { Request, Response, NextFunction } from 'express';
-import { IssueService } from '../../services/IssueService';
+import { IssueService, IssueSearchParams } from '../../services/IssueService';
 import { IssueEvent } from '../../domain/models/Issue';
 import logger from '../../utils/logger';
 
@@ -68,6 +68,27 @@ export class IssueController {
       res.status(200).json({
         status: 'success',
         data: { issue }
+      });
+    } catch (error) {
+      next(error);
+    }
+  }
+
+  // POST /issues/search - Search issues
+  async searchIssues(req: Request, res: Response, next: NextFunction): Promise<void> {
+    try {
+      const searchParams: IssueSearchParams = req.body;
+      logger.info('Search request received', { params: searchParams });
+      
+      const issues = await this.issueService.searchIssues(searchParams);
+      
+      res.status(200).json({
+        status: 'success',
+        data: { 
+          issues,
+          count: issues.length,
+          searchParams
+        }
       });
     } catch (error) {
       next(error);

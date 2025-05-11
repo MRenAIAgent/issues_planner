@@ -13,6 +13,9 @@ export function createIssueRouter(issueController: IssueController): Router {
   // GET /issues/:issueId - Get a specific issue
   router.get('/issues/:issueId', issueController.getIssue.bind(issueController));
   
+  // POST /issues/search - Search issues
+  router.post('/issues/search', issueController.searchIssues.bind(issueController));
+  
   // POST /analyze/:issueId - Analyze a specific issue
   router.post('/analyze/:issueId', issueController.analyzeIssue.bind(issueController));
   
